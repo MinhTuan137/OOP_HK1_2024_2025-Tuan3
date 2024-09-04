@@ -1,0 +1,121 @@
+package tuan2_NganHang;
+
+public class Account {
+	private long soTK;
+	private String tenTK;
+	private double soTienTrongTK;
+	private final long soTienMacDinh = 50000;
+	
+	public long getSoTK() {
+		return soTK;
+	}
+	public void setSoTK(long soTK) {
+		this.soTK = soTK;
+	}
+	public String getTenTK() {
+		return tenTK;
+	}
+	public void setTenTK(String tenTK) {
+		this.tenTK = tenTK;
+	}
+	public double getSoTienTrongTK() {
+		return soTienTrongTK;
+	}
+	public void setSoTienTrongTK(double soTienTrongTK) {
+		this.soTienTrongTK = soTienTrongTK;
+	}
+	
+	//Construtor
+	public Account(long soTK, String tenTK, double soTienTrongTK) {
+		super();
+		this.soTK = soTK;
+		this.tenTK = tenTK;
+		this.soTienTrongTK = soTienTrongTK;
+	}
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Account(long soTK, String tenTK) {
+		super();
+		this.soTK = soTK;
+		this.tenTK = tenTK;
+		this.soTienTrongTK = soTienMacDinh;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%10ld \t%-15s \t%10lf", getSoTK(), getTenTK(), getSoTienTrongTK());
+	}
+	
+	public boolean napTien(double soTienNap) {
+		double tienTrongTK;
+		if(soTienNap > 0)
+		{
+			tienTrongTK = this.getSoTienTrongTK();
+			tienTrongTK += soTienNap;
+			this.setSoTienTrongTK(tienTrongTK);
+			return true;
+		}
+		else
+		{
+			System.out.println("So tien nhap vao khong hop le. Vui long nhap lai.");
+			return false;
+		}
+	}
+	
+	public boolean rutTien(double soTienRut, double phiRut)
+	{
+		double tienTrongTK;
+		tienTrongTK = this.getSoTienTrongTK();
+		if(soTienRut > 0 && (soTienRut + phiRut) < tienTrongTK)
+		{
+			tienTrongTK -= (soTienRut + phiRut);
+			this.setSoTienTrongTK(tienTrongTK);
+			return true;
+		}
+		else {
+			try {
+                throw new Exception("Số tiền không được bé hơn không");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+//			if(soTienRut < 0)
+//				System.out.println("So tien nhap vao khong hop le. Vui long nhap lai.");
+//			else
+//				System.out.println("Tai khoan cua ban khong du tien de rut.");
+//			return false;
+		}
+	}
+	
+	public boolean daoHan(double tienTrongTK)
+	{
+			tienTrongTK = this.getSoTienTrongTK();
+			float laiSuat = (float) 0.035;
+			tienTrongTK += (tienTrongTK*laiSuat);
+			this.setSoTienTrongTK(tienTrongTK);
+			return true;
+	}
+	
+	public void chuyenKhoang(Account taiKhoangNhan, double tienChuyenKhoang)
+	{
+		double tienTrongTK;
+		long soTaiKhoang;
+		tienTrongTK = this.getSoTienTrongTK();
+		soTaiKhoang = this.getSoTK();
+		if(tienChuyenKhoang > 0 )
+		{
+			if(tienChuyenKhoang < tienTrongTK)
+			{
+				tienTrongTK -= tienChuyenKhoang;
+				taiKhoangNhan.napTien(tienChuyenKhoang);
+			}
+			else
+				System.out.println("Tai khoan cua ban khong du tien.");
+		}
+		else
+			System.out.println("So tien nhap vao khong hop le. Vui long nhap lai.");
+	}
+}

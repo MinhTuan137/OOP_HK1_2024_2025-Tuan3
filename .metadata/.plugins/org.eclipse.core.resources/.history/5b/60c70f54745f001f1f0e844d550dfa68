@@ -1,0 +1,54 @@
+package tuan1_SinhVien;
+
+import java.util.Scanner;
+
+public class TestSV {
+	
+	public static int nhapMSSV(String thongbao) {
+		int mSSV;
+		System.out.println(thongbao);
+		Scanner sc = new Scanner(System.in);
+		mSSV = sc.nextInt();
+		return mSSV;
+	}
+	
+	public static String nhapHoTen(String thongbao) {
+		String hoTen;
+		System.out.println(thongbao);
+		Scanner sc = new Scanner(System.in);
+		hoTen = sc.nextLine();
+		return hoTen;
+	}
+	
+	public static float nhapDiemLT(String thongbao) {
+		float diemLT;
+		System.out.println(thongbao);
+		Scanner sc = new Scanner(System.in);
+		diemLT = sc.nextFloat();
+		return diemLT;
+	}
+
+	public static float nhapDiemTH(String thongbao) {
+		float diemTH;
+		System.out.println(thongbao);
+		Scanner sc = new Scanner(System.in);
+		diemTH = sc.nextFloat();
+		return diemTH;
+	}
+	
+	public static SinhVien nhapDoiTuong() {
+		int mSSV;
+		String hoTen;
+		float diemLT, diemTH;
+		SinhVien sv;
+		mSSV = nhapMSSV("Nhap mssv: ");
+		hoTen = nhapHoTen("Nhap ho ten:  ");
+		diemLT = nhapDiemLT("Nhap diemLT: ");
+		diemTH = nhapDiemTH("Nhap diemTH: ");
+		sv = new SinhVien(mSSV, hoTen, diemLT, diemTH);
+		return sv;
+	}
+	
+	public static void
+
+}

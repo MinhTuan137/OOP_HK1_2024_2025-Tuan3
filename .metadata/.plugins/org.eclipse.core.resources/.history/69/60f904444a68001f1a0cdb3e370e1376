@@ -1,0 +1,127 @@
+package tuan2_NganHang;
+
+public class Account {
+	private long soTK;
+	private String tenTK;
+	private double soTienTrongTK;
+	private final long soTienMacDinh = 50000;
+	
+	public long getSoTK() {
+		return soTK;
+	}
+	public void setSoTK(long soTK) {
+		this.soTK = soTK;
+	}
+	public String getTenTK() {
+		return tenTK;
+	}
+	public void setTenTK(String tenTK) {
+		this.tenTK = tenTK;
+	}
+	public double getSoTienTrongTK() {
+		return soTienTrongTK;
+	}
+	public void setSoTienTrongTK(double soTienTrongTK) {
+		this.soTienTrongTK = soTienTrongTK;
+	}
+	
+	//Construtor
+	public Account(long soTK, String tenTK, double soTienTrongTK) {
+		super();
+		this.soTK = soTK;
+		this.tenTK = tenTK;
+		this.soTienTrongTK = soTienTrongTK;
+	}
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Account(long soTK, String tenTK) {
+		super();
+		this.soTK = soTK;
+		this.tenTK = tenTK;
+		this.soTienTrongTK = soTienMacDinh;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String str = "";
+		str += String.format("%15d \t\t%-15s \t%10.3f", getSoTK(), getTenTK(), getSoTienTrongTK());
+		return str;
+	}
+	
+	//Phương thức nạp tiền vào tài khoản
+	public boolean napTien(double soTienNap) throws Exception
+	{
+		double tienTrongTK;
+		if(soTienNap > 0)
+		{
+			tienTrongTK = getSoTienTrongTK();
+			tienTrongTK += soTienNap;
+			this.setSoTienTrongTK(tienTrongTK);
+			return true;
+		}
+		else
+		{
+			try {
+                throw new Exception("Số tiền không được bé hơn không");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+		}
+	}
+	
+	//Phương thức rút tiền
+	public boolean rutTien(double soTienRut, double phiRut) throws Exception
+	{
+		double tienTrongTK;
+		tienTrongTK = this.getSoTienTrongTK();
+		if(soTienRut > 0 && (soTienRut + phiRut) < tienTrongTK)
+		{
+			tienTrongTK -= (soTienRut + phiRut);
+			this.setSoTienTrongTK(tienTrongTK);
+			return true;
+		}
+		else {
+			try {
+                throw new Exception("Số tiền không được bé hơn không");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+		}
+	}
+	
+	//Phương thức đáo hạn
+	public boolean daoHan(double tienTrongTK) throws Exception
+	{
+			tienTrongTK = this.getSoTienTrongTK();
+			float laiSuat = (float) 0.035;
+			tienTrongTK += (tienTrongTK*laiSuat);
+			this.setSoTienTrongTK(tienTrongTK);
+			return true;
+	}
+	
+	//Phương thức chuyển khoảng
+	public void chuyenKhoang(Account taiKhoanNhan, double tienChuyenKhoan) throws Exception
+	{
+		double tienTrongTK;
+		long soTaiKhoan;
+		tienTrongTK = this.getSoTienTrongTK();
+		soTaiKhoan = this.getSoTK();
+		if(tienChuyenKhoan > 0 && tienChuyenKhoan <= tienTrongTK )
+		{
+			if(tienChuyenKhoan < tienTrongTK)
+			{
+				tienTrongTK -= tienChuyenKhoan;
+				taiKhoanNhan.napTien(tienChuyenKhoan);
+			}
+			else
+				System.out.println("Tài khoản của bạn không đủ tiền.");
+		}
+		else
+			System.out.println("Số tiền nhập vào không hợp lệ. Vui lòng nhập lại.");
+	}
+
+}

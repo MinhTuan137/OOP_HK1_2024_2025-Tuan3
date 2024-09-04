@@ -1,0 +1,83 @@
+package tuan2_NganHang;
+
+public class Account {
+	private long soTK;
+	private String tenTK;
+	private double soTienTrongTK;
+	private final long soTienMacDinh = 50000;
+	float laiSuat = (float) 0.035;
+	
+	public long getSoTK() {
+		return soTK;
+	}
+	public void setSoTK(long soTK) {
+		this.soTK = soTK;
+	}
+	public String getTenTK() {
+		return tenTK;
+	}
+	public void setTenTK(String tenTK) {
+		this.tenTK = tenTK;
+	}
+	public double getSoTienTrongTK() {
+		return soTienTrongTK;
+	}
+	public void setSoTienTrongTK(double soTienTrongTK) {
+		this.soTienTrongTK = soTienTrongTK;
+	}
+	
+	//Construtor
+	public Account(long soTK, String tenTK, double soTienTrongTK) {
+		super();
+		this.soTK = soTK;
+		this.tenTK = tenTK;
+		this.soTienTrongTK = soTienTrongTK;
+	}
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Account(long soTK, String tenTK) {
+		super();
+		this.soTK = soTK;
+		this.tenTK = tenTK;
+		this.soTienTrongTK = soTienMacDinh;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%10ld \t%-15s \t%10lf", getSoTK(), getTenTK(), getSoTienTrongTK());
+	}
+	
+	public void napTien(int soTienNhap, float soTienTrongTK) {
+		if(soTienNhap > 0)
+			soTienTrongTK += soTienNhap;
+		else
+			System.out.println("So tien nhap vao khong hop le. Vui long nhap lai.");
+	}
+	
+	public void rutTien(int soTienNhap, float soTienTrongTK)
+	{
+		int phi = 1000;
+		if(soTienNhap > 0 && (soTienNhap + phi) < soTienTrongTK)
+			soTienTrongTK -= (soTienNhap + phi);
+		else {
+			if(soTienNhap < 0)
+				System.out.println("So tien nhap vao khong hop le. Vui long nhap lai.");
+			else
+				System.out.println("Tai khoan cua khong du tien de rut.");
+		}
+	}
+	
+	public float daoHan(float laiSuat, float soTienTrongTK)
+	{
+		return soTienTrongTK += (soTienTrongTK*laiSuat);
+	}
+	
+	public void chuyenKhoang(int soTienNhap, float soTienTrongTK, long soTK)
+	{
+		if()
+	}
+}

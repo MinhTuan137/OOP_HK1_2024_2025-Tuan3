@@ -1,0 +1,100 @@
+package tuan2_NganHang;
+
+import java.util.Scanner;
+
+public class TestAcc {
+	static DSAccount accountList;
+
+	public static void tieuDe() {
+		String title = String.format("\t%-7s %15s %25s %22s", "STT", "Số tài khoản", "Họ và tên", "Số Dư");
+		System.out.println(title);
+	}
+
+	public static long nhapSoTaiKhoan(String thongbao)
+	{
+		long soTaiKhoan;
+		System.out.println(thongbao);
+		Scanner sc = new Scanner(System.in);
+		soTaiKhoan = sc.nextLong();
+		return soTaiKhoan;
+	}
+
+	public static String nhapHoTen(String thongbao)
+	{
+		String hoTen;
+		System.out.println(thongbao);
+		Scanner sc = new Scanner(System.in);
+		hoTen = sc.nextLine();
+		return hoTen;
+	}
+
+	public static double nhapSoTien(String thongbao)
+	{
+		double soTien;
+		System.out.println(thongbao);
+		Scanner sc = new Scanner(System.in);
+		soTien = sc.nextDouble();
+		return soTien;
+	}
+
+	//nhap mem
+	public static Account nhapDoiTuong()
+	{
+		long soTaiKhoan;
+		String hoTen;
+		double soDu;
+		Account acc;
+		soTaiKhoan = nhapSoTaiKhoan("Nhập số tài khoản: ");
+		hoTen = nhapHoTen("Nhập họ tên: ");
+		soDu = nhapSoDu("Nhập số dư trong tài khoản: ");
+		acc = new Account(soTaiKhoan, hoTen, soDu);
+		return acc;
+	}
+
+	//nhap cung 
+	public static void nhapCung() throws Exception {
+		Account[] accounts = {
+				new Account(1017020607, "Lê Hoàng Bảo"),
+				new Account(1017046087, "Tạ Văn Ơn", 5000000),
+				new Account(1017061096, "Cù Văn Cần", 1000000),
+				new Account(1017030708, "Bao Bao", 300000)
+		};
+		for (Account acc: accounts)
+			accountList.them(acc); 
+	}
+
+	public static void displayAccountList() {
+		Account[] allAccount = accountList.getAllAccounts();
+		for(int i = 0; i < accountList.getSoLuongHT(); i++) {
+			System.out.printf("\t%-7d ", i+1);
+			System.out.println(allAccount[i]);
+		}
+	}
+
+	public static void napTien() throws Exception
+	{
+		double soTienNap;
+		long soTK = nhapSoTaiKhoan("Nhập số tài khoản cần nạp: ");
+		Account acc = accountList.laySoTaiKhoan(soTK);
+		if(acc != null)
+		{
+			soTienNap = nhapSoTien("Nhập số tiền cần nạp: ");
+			acc.napTien(soTienNap);
+			System.out.println("Nạp tiền thành công.\n");
+		}
+		else
+			System.out.println("Không tìm thấy tài khoản.\n");
+	}
+
+	public static void main(String[] args) throws Exception
+	{
+		accountList = new DSAccount(4);
+//		Account[] DSAccount;
+//		DSAccount[0] = nhapDoiTuong();
+		nhapCung();
+		tieuDe();
+		displayAccountList();
+
+	}
+
+}
