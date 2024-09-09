@@ -4,6 +4,7 @@ public class NoiThanh extends ChuyenXe{
 	
 	private int soTuyen;
 	private double soKm;
+	
 	//------------------------get và set các biến----------------------------
 	public int getSoTuyen() {
 		return soTuyen;

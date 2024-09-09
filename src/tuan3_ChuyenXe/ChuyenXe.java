@@ -31,8 +31,11 @@ public class ChuyenXe {
 	public double getDoanhThu() {
 		return doanhThu;
 	}
-	public void setDoanhThu(double doanhThu) {
-		this.doanhThu = doanhThu;
+	public void setDoanhThu(double doanhThu) throws Exception{
+		if(doanhThu > 0)
+			this.doanhThu = doanhThu;
+		else
+			throw new Exception("Doanh thu phải lớn hơn 0");
 	}
 	
 	//------------------------------ Các Contructor -----------------------------------
