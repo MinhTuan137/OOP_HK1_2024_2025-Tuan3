@@ -1,0 +1,75 @@
+package tuan2_NganHang;
+
+public class DSAccount {
+	private Account[] ds;
+	public int soLuongHT = 0;//hiện tai
+
+	public DSAccount() 
+	{
+		super();
+		this.ds = new Account[1];
+	}
+
+	public int getSoLuongHT()
+	{
+		return soLuongHT;
+	}
+
+	public void setSoLuongHT(int soLuongHT)
+	{
+		this.soLuongHT = soLuongHT;
+	}
+
+	public DSAccount(int soluong)
+	{
+		ds = new Account[soluong];
+	}
+	
+	public Account[] getAllAccounts() {
+		return ds;
+	}
+	
+	// tăng kích thước của mảng nếu đầy
+	public void TangKichThuoc() {
+		Account temp[] = new Account[ds.length * 2];
+		for (int i = 0; i < ds.length; i++) {
+			temp[i] = ds[i];
+		}
+		ds = temp;
+	}
+
+	// thêm 1 tài khoản
+	public void them(Account ac) throws Exception {
+		if (soLuongHT == ds.length)
+			TangKichThuoc();
+
+		if (timKiem(ac.getSoTK()) == -1) // không tìm thấy
+		{
+			ds[soLuongHT] = ac;
+			soLuongHT++;
+		} 
+		else
+		{
+			throw new Exception("Trùng mã");
+		}
+	}
+
+	public int timKiem(long  soTK) 
+	{
+		for (int i = 0; i < soLuongHT; i++) {
+			if (soTK == ds[i].getSoTK())
+				return i;
+		}
+		return -1;
+	}
+
+	public Account laySoTaiKhoan(long soTK)
+	{
+		int timTK = timKiem(soTK);
+		if(timTK != -1)
+			return ds[timTK];
+		else
+			return null;
+	}
+
+}
